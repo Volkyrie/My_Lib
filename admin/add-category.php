@@ -18,16 +18,16 @@ if (strlen($_SESSION['alogin']) == 0) {
         // On execute la requete
         $query = $dbh->prepare($sql);
         $query->bindParam(':categoryName', $category, PDO::PARAM_STR);
-        $query->bindParam(':status', $status, PDO::PARAM_STR);
+        $query->bindParam(':status', $status, PDO::PARAM_INT);
         $query->execute();
         $lastId = $dbh->lastInsertId();
         // On stocke dans $_SESSION le message correspondant au resultat de loperation
         if (isset($lastId)) {
-            $_SESSION['catmsg'] = "L'opération s\'est bien roulée";
-            echo "<script>alert('L\'opération s\'est bien déroulée')</script>";
+            $_SESSION['catmsg'] = "La catégorie a bien été ajoutée";
+            echo "<script>alert('La catégorie a bien été ajoutée')</script>";
         } else {
-            $_SESSION['catmsg'] = "L'opération ne s\'est pas bien roulée";
-            echo "<script>alert('L\'opération ne s\'est bien déroulée')</script>";
+            $_SESSION['catmsg'] = "La catégorie n\'a pas été ajoutée";
+            echo "<script>alert('La catégorie n\'a pas été ajoutée')</script>";
         }
     }
 }
