@@ -20,7 +20,6 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->bindParam(':catId', $catId, PDO::PARAM_INT);
         $query->execute();
         $prevStatus = $query->fetch(PDO::FETCH_OBJ);
-        error_log(print_r($prevStatus, 1));
 
         // On prepare la requete de suppression
         $sql = "UPDATE tblcategory SET Status=0 WHERE id=:catId";
