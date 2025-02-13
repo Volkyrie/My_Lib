@@ -2,6 +2,55 @@
 session_start();
 
 include('includes/config.php');
+
+// Si l'utilisateur n'est plus logué
+if (strlen($_SESSION['alogin']) == 0) {
+  // On le redirige vers la page de login
+  header('location:../index.php');
+} else {
+  // Sinon on peut continuer. Après soumission du formulaire de creation
+  if (isset($_POST['create'])) {
+    // On recupere le nom de l'auteur
+    $name = strip_tags($_POST['name']);
+    $category = strip_tags($_POST['category']);
+    $author = strip_tags($_POST['author']);
+    $isbn = strip_tags($_POST['isbn']);
+    $price = strip_tags($_POST['price']);
+
+    //On récupère les identifiants category et author
+    $sql = "SELECT id from tblcategory WHERE CategoryName=:category";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':category', $category, PDO::PARAM_INT);
+    $query->execute();
+    $category = $query->fetch(PDO::FETCH_OBJ);
+    $categoryId = $category->id;
+
+    $sql = "SELECT id from tblauthors WHERE AuthorName=:author";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':author', $author, PDO::PARAM_INT);
+    $query->execute();
+    $author = $query->fetch(PDO::FETCH_OBJ);
+    $authorId = $author->id;
+
+    // On prepare la requete d'insertion dans la table tblbooks
+    $sql = "INSERT INTO tblbooks (BookName, CatId, AuthorId, ISBNNumber, BookPrice) VALUES (:name, :cat, :author, :number, :price)";
+    // On execute la requete
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':name', $name, PDO::PARAM_STR);
+    $query->bindParam(':cat', $categoryId, PDO::PARAM_INT);
+    $query->bindParam(':author', $authorId, PDO::PARAM_INT);
+    $query->bindParam(':number', $isbn, PDO::PARAM_INT);
+    $query->bindParam(':price', $price, PDO::PARAM_INT);
+    $query->execute();
+    $lastId = $dbh->lastInsertId();
+    // On stocke dans $_SESSION le message correspondant au resultat de loperation
+    if (isset($lastId)) {
+          $_SESSION['bookmsg'] = "Le livre a bien été ajouté";
+    } else {
+          $_SESSION['bookmsg'] = "Le livre n'a pas été ajouté";
+    }
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="FR">
@@ -20,12 +69,73 @@ include('includes/config.php');
 <body>
       <!------MENU SECTION START-->
 <?php include('includes/header.php');?>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+      <h3>AJOUT D'UN LIVRE</h3>
+      </div>
+    </div>
+    <!-- On affiche le formulaire de creation-->
+    <div class="row">
+      <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 offset-md-3">
+        <div class="panel panel-info">
+          <div class="panel-body border border-info rounded">
+            <h4 class="bg-info text-dark">Informations livre</h4>
+            <form role="form" method="post" action="">
+              <div class="form-group">
+                <label for="name">Titre *</label>
+                <input class="form-control" type="text" name="name" required autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="category">Categorie *</label><br>
+                <select class="form-control" name="category" id="category" required>
+                  <?php 
+                      $sql = "SELECT CategoryName from tblcategory";
+                      $query = $dbh->prepare($sql);
+                      $query->execute();
+                      $categories = $query->fetchAll(PDO::FETCH_ASSOC);
+                      foreach($categories as $category) {
+                        echo '<option value="'.$category['CategoryName'].'"> '.$category['CategoryName'].' </option>';
+                      }
+                    ?>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label for="author">Auteur *</label><br>
+                <select class="form-control" name="author" id="author" required>
+                  <?php 
+                    $sql = "SELECT AuthorName from tblauthors";
+                    $query = $dbh->prepare($sql);
+                    $query->execute();
+                    $authors = $query->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($authors as $author) {
+                      echo '<option value="'.$author['AuthorName'].'"> '.$author['AuthorName'].' </option>';
+                    }
+                  ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="isbn">ISBN *</label>
+                <input class="form-control" type="text" name="isbn" required autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="price">Prix *</label>
+                <input class="form-control" type="text" name="price" required autocomplete="off" />
+              </div>
+              <button type="submit" name="create" class="btn btn-info"> Ajouter </button>
+            </form>
+          </div>
+        </div>
+      </div>
+		</div>
+</div>
 <!-- MENU SECTION END-->
 
      <!-- CONTENT-WRAPPER SECTION END-->
     <?php include('includes/footer.php');?>
       <!-- FOOTER SECTION END-->
      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

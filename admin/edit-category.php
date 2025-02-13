@@ -93,12 +93,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                 </form>
             </div>
         </div>
-        <!-- CONTENT-WRAPPER SECTION END-->
-        <?php include('includes/footer.php'); ?>
-        <!-- FOOTER SECTION END-->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     </div>
+    <!-- CONTENT-WRAPPER SECTION END-->
+    <?php include('includes/footer.php'); ?>
+    <!-- FOOTER SECTION END-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

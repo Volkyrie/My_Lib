@@ -84,7 +84,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <?php 
                     $sql = "SELECT * from tblauthors";
                     $query = $dbh->prepare($sql);
-                    $query = $dbh->prepare($sql);
                     $query->execute();
                     // On stocke le résultat dans une variable
                     $authors = $query->fetchAll(PDO::FETCH_ASSOC);
