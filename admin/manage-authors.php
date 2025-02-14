@@ -70,7 +70,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             } ?>
         </div>
         <!-- On affiche le formulaire de gestion des auteurs-->
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -90,11 +90,11 @@ if (strlen($_SESSION['alogin']) == 0) {
                     foreach($authors as $index => $author) {
                         $authorId = $author['id'];
                         echo "<tr>";
-                        echo "<td scope='row' class='table-secondary'>$index</td>";
-                        echo "<td scope='row' class='table-secondary'>".$author['AuthorName']."</td>";
-                        echo "<td scope='row' class='table-secondary'>".$author['creationDate']."</td>";
-                        echo "<td scope='row' class='table-secondary'>".$author['UpdationDate']."</td>";
-                        echo "<td scope='row' class='table-secondary'> <button onCLick='location.href=`edit-author.php?authorId=$authorId`;'>Editer</button><button onCLick='location.href=`manage-authors.php?authorId=$authorId`;'>Supprimer</button></td>";
+                        echo "<td scope='row'>$index</td>";
+                        echo "<td scope='row'>".$author['AuthorName']."</td>";
+                        echo "<td scope='row'>".$author['creationDate']."</td>";
+                        echo "<td scope='row'>".$author['UpdationDate']."</td>";
+                        echo "<td scope='row'> <button onCLick='location.href=`edit-author.php?authorId=$authorId`;'>Editer</button><button onCLick='location.href=`manage-authors.php?authorId=$authorId`;'>Supprimer</button></td>";
                         echo "</tr>";
                     }
                 ?>

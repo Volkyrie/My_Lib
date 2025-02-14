@@ -81,7 +81,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             } ?>
         </div>
         <!-- On affiche le formulaire de gestion des categories-->
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -103,16 +103,16 @@ if (strlen($_SESSION['alogin']) == 0) {
                     foreach($categories as $index => $category) {
                         $catId = $category['id'];
                         echo "<tr>";
-                        echo "<td scope='row' class='table-secondary'>$index</td>";
-                        echo "<td scope='row' class='table-secondary'>".$category['CategoryName']."</td>";
+                        echo "<td scope='row'>$index</td>";
+                        echo "<td scope='row'>".$category['CategoryName']."</td>";
                         if($category['Status'] == 0) {
-                            echo "<td scope='row' class='table-secondary'> Inactif </td>";
+                            echo "<td scope='row'> Inactif </td>";
                         } else {
-                            echo "<td scope='row' class='table-secondary'> Actif </td>";
+                            echo "<td scope='row'> Actif </td>";
                         }
-                        echo "<td scope='row' class='table-secondary'>".$category['CreationDate']."</td>";
-                        echo "<td scope='row' class='table-secondary'>".$category['UpdationDate']."</td>";
-                        echo "<td scope='row' class='table-secondary'> <button onCLick='location.href=`edit-category.php?catId=$catId`;'>Editer</button><button onCLick='location.href=`manage-categories.php?catId=$catId`;'>Supprimer</button></td>";
+                        echo "<td scope='row'>".$category['CreationDate']."</td>";
+                        echo "<td scope='row'>".$category['UpdationDate']."</td>";
+                        echo "<td scope='row'> <button onCLick='location.href=`edit-category.php?catId=$catId`;'>Editer</button><button onCLick='location.href=`manage-categories.php?catId=$catId`;'>Supprimer</button></td>";
                         echo "</tr>";
                     }
                 ?>

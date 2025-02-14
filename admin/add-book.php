@@ -32,23 +32,34 @@ if (strlen($_SESSION['alogin']) == 0) {
     $author = $query->fetch(PDO::FETCH_OBJ);
     $authorId = $author->id;
 
-    // On prepare la requete d'insertion dans la table tblbooks
-    $sql = "INSERT INTO tblbooks (BookName, CatId, AuthorId, ISBNNumber, BookPrice) VALUES (:name, :cat, :author, :number, :price)";
-    // On execute la requete
+    $sql = "SELECT COUNT(*) from tblbooks where ISBNNumber=:isbn";
     $query = $dbh->prepare($sql);
-    $query->bindParam(':name', $name, PDO::PARAM_STR);
-    $query->bindParam(':cat', $categoryId, PDO::PARAM_INT);
-    $query->bindParam(':author', $authorId, PDO::PARAM_INT);
-    $query->bindParam(':number', $isbn, PDO::PARAM_INT);
-    $query->bindParam(':price', $price, PDO::PARAM_INT);
+    $query->bindParam(':isbn', $isbn, PDO::PARAM_INT);
     $query->execute();
-    $lastId = $dbh->lastInsertId();
-    // On stocke dans $_SESSION le message correspondant au resultat de loperation
-    if (isset($lastId)) {
-          $_SESSION['bookmsg'] = "Le livre a bien été ajouté";
+    $result = $query->fetchColumn();
+    error_log(print_r($result, 1));
+    if($result < 1) {
+      // On prepare la requete d'insertion dans la table tblbooks
+      $sql = "INSERT INTO tblbooks (BookName, CatId, AuthorId, ISBNNumber, BookPrice) VALUES (:name, :cat, :author, :number, :price)";
+      // On execute la requete
+      $query = $dbh->prepare($sql);
+      $query->bindParam(':name', $name, PDO::PARAM_STR);
+      $query->bindParam(':cat', $categoryId, PDO::PARAM_INT);
+      $query->bindParam(':author', $authorId, PDO::PARAM_INT);
+      $query->bindParam(':number', $isbn, PDO::PARAM_INT);
+      $query->bindParam(':price', $price, PDO::PARAM_INT);
+      $query->execute();
+      $lastId = $dbh->lastInsertId();
+      // On stocke dans $_SESSION le message correspondant au resultat de loperation
+      if (isset($lastId)) {
+            $_SESSION['bookmsg'] = "Le livre a bien été ajouté";
+      } else {
+            $_SESSION['bookmsg'] = "Le livre n'a pas été ajouté";
+      }
     } else {
-          $_SESSION['bookmsg'] = "Le livre n'a pas été ajouté";
+      echo "<script> alert('Cet ISBN est déjà pris');</script>";
     }
+    
   }
 }
 ?>
