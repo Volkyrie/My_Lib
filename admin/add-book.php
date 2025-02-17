@@ -16,36 +16,38 @@ if (strlen($_SESSION['alogin']) == 0) {
     $author = strip_tags($_POST['author']);
     $isbn = strip_tags($_POST['isbn']);
     $price = strip_tags($_POST['price']);
+    error_log(print_r($author, 1));
 
     //On récupère les identifiants category et author
-    $sql = "SELECT id from tblcategory WHERE CategoryName=:category";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':category', $category, PDO::PARAM_INT);
-    $query->execute();
-    $category = $query->fetch(PDO::FETCH_OBJ);
-    $categoryId = $category->id;
+    // $sql = "SELECT * from tblcategory WHERE CategoryName=:category";
+    // $query = $dbh->prepare($sql);
+    // $query->bindParam(':category', $category, PDO::PARAM_INT);
+    // $query->execute();
+    // $category = $query->fetch(PDO::FETCH_OBJ);
+    // $categoryId = $category->id;
 
-    $sql = "SELECT id from tblauthors WHERE AuthorName=:author";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':author', $author, PDO::PARAM_INT);
-    $query->execute();
-    $author = $query->fetch(PDO::FETCH_OBJ);
-    $authorId = $author->id;
+    // $sql = "SELECT * from tblauthors WHERE AuthorName=:author";
+    // $query = $dbh->prepare($sql);
+    // $query->bindParam(':author', $author, PDO::PARAM_INT);
+    // $query->execute();
+    // $author = $query->fetch(PDO::FETCH_OBJ);
+    // $authorId = $author->id;
+    // error_log(print_r($authorId, 1));
 
     $sql = "SELECT COUNT(*) from tblbooks where ISBNNumber=:isbn";
     $query = $dbh->prepare($sql);
     $query->bindParam(':isbn', $isbn, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetchColumn();
-    error_log(print_r($result, 1));
+
     if($result < 1) {
       // On prepare la requete d'insertion dans la table tblbooks
       $sql = "INSERT INTO tblbooks (BookName, CatId, AuthorId, ISBNNumber, BookPrice) VALUES (:name, :cat, :author, :number, :price)";
       // On execute la requete
       $query = $dbh->prepare($sql);
       $query->bindParam(':name', $name, PDO::PARAM_STR);
-      $query->bindParam(':cat', $categoryId, PDO::PARAM_INT);
-      $query->bindParam(':author', $authorId, PDO::PARAM_INT);
+      $query->bindParam(':cat', $category, PDO::PARAM_INT);
+      $query->bindParam(':author', $author, PDO::PARAM_INT);
       $query->bindParam(':number', $isbn, PDO::PARAM_INT);
       $query->bindParam(':price', $price, PDO::PARAM_INT);
       $query->execute();
@@ -102,12 +104,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <label for="category">Categorie *</label><br>
                 <select class="form-control" name="category" id="category" required>
                   <?php 
-                      $sql = "SELECT CategoryName from tblcategory";
+                      $sql = "SELECT * from tblcategory";
                       $query = $dbh->prepare($sql);
                       $query->execute();
                       $categories = $query->fetchAll(PDO::FETCH_ASSOC);
                       foreach($categories as $category) {
-                        echo '<option value="'.$category['CategoryName'].'"> '.$category['CategoryName'].' </option>';
+                        echo '<option value="'.$category['id'].'"> '.$category['CategoryName'].' </option>';
                       }
                     ?>
                   </select>
@@ -116,12 +118,12 @@ if (strlen($_SESSION['alogin']) == 0) {
                 <label for="author">Auteur *</label><br>
                 <select class="form-control" name="author" id="author" required>
                   <?php 
-                    $sql = "SELECT AuthorName from tblauthors";
+                    $sql = "SELECT * from tblauthors";
                     $query = $dbh->prepare($sql);
                     $query->execute();
                     $authors = $query->fetchAll(PDO::FETCH_ASSOC);
                     foreach($authors as $author) {
-                      echo '<option value="'.$author['AuthorName'].'"> '.$author['AuthorName'].' </option>';
+                      echo '<option value="'.$author['id'].'"> '.$author['AuthorName'].' </option>';
                     }
                   ?>
                 </select>

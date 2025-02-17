@@ -8,11 +8,9 @@ if (strlen($_SESSION['alogin']) == 0) {
       header('location:../index.php');
   } else {
       if(isset($_GET['bookId'])) {
-            error_log(print_r($_GET, 1));
         try {
               // On recupere l'identifiant du livre a supprimer
               $bookId = strip_tags($_GET['bookId']);
-              error_log(print_r($bookId, 1));
               // On prepare la requete de suppression
               $sql = "DELETE from tblbooks WHERE id=:bookId";
               $query = $dbh->prepare($sql);
@@ -106,7 +104,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                               $query->bindParam(':bookCat', $bookCat, PDO::PARAM_INT);
                               $query->execute();
                               $currentBook = $query->fetch(PDO::FETCH_OBJ);
-                              error_log(print_r($currentBook, 1));
 
                               if(empty($currentBook->CategoryName)) {
                                     $bookCat = "NaN";
