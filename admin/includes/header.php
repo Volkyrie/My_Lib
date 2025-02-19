@@ -59,7 +59,7 @@
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="reg-students.php" class="nav-link">Gérer les lecteurs</a></li>
                     </ul>
                 </li> -->
-                <li class="nav-item"><a href="reg-students.php" class="nav-link">LECTEURS</a></li>
+                <li class="nav-item"><a href="reg-readers.php" class="nav-link">LECTEURS</a></li>
                 <li class="nav-item"><a href="change-password.php" class="nav-link">MODIFIER LE MOT DE PASSE</a></li>
             </ul>
         </div>
