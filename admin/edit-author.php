@@ -59,7 +59,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h4 class="header-line">Editer l'auteur</h4>
+                <h4 class="header-line p-5">Editer l'auteur</h4>
             </div>
         </div>
         <!-- On affiche le formulaire dedition-->

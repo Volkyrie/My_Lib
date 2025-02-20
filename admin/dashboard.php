@@ -66,22 +66,22 @@ if (strlen($_SESSION['alogin']) == 0) {
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3>TABLEAU DE BORD ADMINISTRATION</h3>
+          <h3 class="header-line p-5">TABLEAU DE BORD ADMINISTRATION</h3>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-3 col-md-3">
           <!-- On affiche la carte Nombre de livres -->
-          <div class="alert alert-succes text-center">
+          <div class="alert alert-succes text-center text-success d-flex align-items-center flex-column justify-content-center">
             <span class="fa fa-book fa-5x">
               <h3><?php echo $nbBooks; ?></h3>
-            </span>
+            </span >
             Nombre de livre
           </div>
         </div>
         <div class="col-sm-3 col-md-3">
           <!-- On affiche la carte Livres en pr�t -->
-          <div class="alert alert-succes text-center">
+          <div class="alert alert-succes text-center text-primary d-flex align-items-center flex-column justify-content-center">
             <span class="fa fa-book fa-5x">
               <h3><?php echo $nbLent; ?></h3>
 
@@ -91,7 +91,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         </div>
         <div class="col-sm-3 col-md-3">
           <!-- On affiche la carte Livres retourn�s -->
-          <div class="alert alert-succes text-center">
+          <div class="alert alert-succes text-center text-warning d-flex align-items-center flex-column justify-content-center">
             <span class="fa fa-bars fa-5x">
               <h3><?php echo $nbReturned; ?></h3>
 
@@ -101,7 +101,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         </div>
         <div class="col-sm-3 col-md-3">
           <!-- On affiche la carte Lecteurs -->
-          <div class="alert alert-succes text-center">
+          <div class="alert alert-succes text-center text-danger d-flex align-items-center flex-column justify-content-center">
             <span class="fa fa-recycle fa-5x">
               <h3><?php echo $nbReaders; ?></h3>
 
@@ -111,7 +111,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         </div>
         <div class="col-sm-3 col-md-3">
           <!-- On affiche la carte Auteurs -->
-          <div class="alert alert-succes text-center">
+          <div class="alert alert-succes text-center text-success d-flex align-items-center flex-column justify-content-center">
             <span class="fa fa-users fa-5x">
               <h3><?php echo $nbAuthors; ?></h3>
 
@@ -121,7 +121,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         </div>
         <div class="col-sm-3 col-md-3">
           <!-- On affiche la carte Cat�gories -->
-          <div class="alert alert-succes text-center">
+          <div class="alert alert-succes text-center text-primary d-flex align-items-center flex-column justify-content-center">
             <span class="fa fa-file-archive-o fa-5x">
               <h3><?php echo $nbCategories; ?></h3>
             </span>

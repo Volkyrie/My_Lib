@@ -109,7 +109,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 <div class="container">
   <div class="row">
     <div class="col">
-    <h3>AJOUT D'UN LIVRE</h3>
+    <h3 class="header-line p-5">AJOUT D'UN LIVRE</h3>
     </div>
   </div>
   <!-- On affiche le formulaire de creation-->

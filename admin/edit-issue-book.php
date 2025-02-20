@@ -63,7 +63,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 <div class="container">
     <div class="row">
       <div class="col">
-      <h3>EDITION D'UNE SORTIE</h3>
+      <h3 class="header-line p-5">EDITION D'UNE SORTIE</h3>
       </div>
     </div>
       <?php 

@@ -16,23 +16,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     $author = strip_tags($_POST['author']);
     $isbn = strip_tags($_POST['isbn']);
     $price = strip_tags($_POST['price']);
-    error_log(print_r($author, 1));
-
-    //On récupère les identifiants category et author
-    // $sql = "SELECT * from tblcategory WHERE CategoryName=:category";
-    // $query = $dbh->prepare($sql);
-    // $query->bindParam(':category', $category, PDO::PARAM_INT);
-    // $query->execute();
-    // $category = $query->fetch(PDO::FETCH_OBJ);
-    // $categoryId = $category->id;
-
-    // $sql = "SELECT * from tblauthors WHERE AuthorName=:author";
-    // $query = $dbh->prepare($sql);
-    // $query->bindParam(':author', $author, PDO::PARAM_INT);
-    // $query->execute();
-    // $author = $query->fetch(PDO::FETCH_OBJ);
-    // $authorId = $author->id;
-    // error_log(print_r($authorId, 1));
 
     $sql = "SELECT COUNT(*) from tblbooks where ISBNNumber=:isbn";
     $query = $dbh->prepare($sql);
@@ -86,7 +69,7 @@ if (strlen($_SESSION['alogin']) == 0) {
   <div class="container">
     <div class="row">
       <div class="col">
-      <h3>AJOUT D'UN LIVRE</h3>
+      <h3 class="header-line p-5">AJOUT D'UN LIVRE</h3>
       </div>
     </div>
     <!-- On affiche le formulaire de creation-->

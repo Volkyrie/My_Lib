@@ -71,7 +71,7 @@ if (strlen($_SESSION['alogin']) == 0) {
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3>GESTION DES CATEGORIES</h3>
+          <h3 class="header-line p-5">GESTION DES CATEGORIES</h3>
         </div>
       </div>
         <!-- On prevoit ici une div pour l'affichage des erreurs ou du succes de l'operation de mise a jour ou de suppression d'une categorie-->

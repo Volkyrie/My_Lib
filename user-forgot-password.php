@@ -25,7 +25,6 @@ if (isset($_POST['send'])){
           $query->execute();
           $results = $query->fetch(PDO::FETCH_OBJ);
           // Si le resultat de recherche n'est pas vide
-          error_log(print_r($results, 1));
           if($results) {
                // On met a jour la table tblreaders avec le nouveau mot de passe
                $sql = "UPDATE tblreaders SET Password=:password WHERE EmailId=:email AND MobileNumber=:mobileNumber";
